@@ -1,0 +1,2020 @@
+openapi: 3.0.1
+info:
+  title: CRM RESTful API Docs v1.0
+  description: >-
+    Just about CRM RESTful API Documentation. Enjoyed
+    `Created by H@$b1`
+  contact:
+    email: justhasby@gmail.com
+  version: 1.0.0
+servers:
+  - url: 'http://157.245.55.185:8088/api/v1'
+tags:
+  - name: Auth-Controller
+  - name: Lookup-Controller
+  - name: NIK-Controller
+  - name: Pengaduan-Controller
+  - name: iAsk-Controller
+  - name: Pelayanan-Controller
+  - name: InfoGrafis-Controller
+  - name: FAQ-Controller
+  - name: Instansi-Controller
+  - name: Tema-Controller
+  - name: Pertanyaan-Controller
+  - name: Users-Controller
+paths: 
+# begin::nik-controller  
+  '/nik/{nik}':
+    get:
+      tags:
+        - NIK-Controller
+      summary: getNikAndBansos
+      operationId: getNikAndBansos
+      parameters:
+        - name: nik
+          in: path
+          description: Return NIK From BDT ex -> 3101010101080001
+          required: true
+          schema:
+            $ref: '#/components/parameters/getByNik'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+# end::nik-controller
+# 
+# begin::pengaduan-controller                    
+  /pengaduan/add:
+    post:
+      tags:
+        - Pengaduan-Controller
+      summary: addPengaduan
+      operationId: addPengaduan 
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addPengaduan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'    
+  /pengaduan/comment/add:
+    post:
+      tags:
+        - Pengaduan-Controller
+      summary: addCommentPengaduan
+      operationId: addCommentPengaduan 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addCommentPengaduan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'             
+  /pengaduan:
+    post:
+      tags:
+        - Pengaduan-Controller
+      summary: getAllPengaduanPaginate
+      operationId: getAllPengaduanPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      tags:
+        - Pengaduan-Controller
+      summary: getPengaduanByTicketOrNik
+      operationId: getPengaduanByTicketOrNik
+      description: getPengaduanBy -> Ticket or Nik 
+      parameters:
+        - name: no_pengaduan
+          in: query
+          schema:
+            $ref: '#/components/parameters/getByTicket'
+        - name: nik
+          in: query
+          schema:
+            $ref: '#/components/parameters/getByNik'            
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - Pengaduan-Controller
+      summary: updatePengaduan
+      operationId: updatePengaduan
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updatePengaduan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/pengaduan/{ticket}':         
+    post:
+      tags:
+        - Pengaduan-Controller
+      summary: deletePengaduanByTicket
+      operationId: deletePengaduanByTicket
+      parameters:
+        - name: ticket
+          in: path
+          schema:
+            $ref: '#/components/parameters/deleteByTicket'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'                                             
+# end::pengaduan-controller
+# begin::iask-controller
+  /iask/add:
+    post:
+      tags:
+        - iAsk-Controller
+      summary: addiAsk
+      operationId: addiAsk 
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addiAsk'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'   
+  /iask/comment/add:
+    post:
+      tags:
+        - iAsk-Controller
+      summary: addCommentiAsk
+      operationId: addCommentiAsk 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/addCommentiAsk'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'             
+  /iask:
+    post:
+      tags:
+        - iAsk-Controller
+      summary: getAlliAskPaginate
+      operationId: getAlliAskPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      tags:
+        - iAsk-Controller
+      summary: getiAskByTicketOrNik
+      operationId: getiAskByTicketOrNik
+      parameters:
+        - name: no_pengaduan
+          in: query
+          schema:
+            oneOf:
+              $ref: '#/components/parameters/getByTicket'
+        - name: nik
+          in: query
+          schema:
+            oneOf:
+              $ref: '#/components/parameters/getByNik'            
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+    put:
+      tags:
+        - iAsk-Controller
+      summary: updateiAsk
+      operationId: updateiAsk
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateiAsk'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/iask/{ticket}':         
+    post:
+      tags:
+        - iAsk-Controller
+      summary: deleteiAskByTicket
+      operationId: deleteiAskByTicket
+      parameters:
+        - name: ticket
+          in: path
+          schema:
+            $ref: '#/components/parameters/deleteByTicket'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'  
+# end::auth
+# begin::auth
+  /auth/signin:
+    post:
+      tags:
+        - Auth-Controller
+      summary: authenticateUser
+      operationId: loginUser
+      parameters:
+        - name: email
+          in: query
+          description: The user name for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid username/password supplied
+          content: {}
+  /auth/forget:         
+    post:
+      tags:
+        - Auth-Controller
+      summary: resetPassUsersByEmail
+      operationId: resetPassUsersByEmail
+      parameters:
+        - name: email
+          in: query
+          schema:
+            $ref: '#/components/parameters/getByEmailOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'              
+# end::auth
+# 
+# begin::pelayanan
+  /pelayanan/add:
+    post:
+      tags:
+        - Pelayanan-Controller
+      summary: addPelayanan
+      operationId: addPelayanan 
+      requestBody:
+        required: true                                    
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pelayanan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /pelayanan/download/sample:
+    get:
+      tags:
+        - Pelayanan-Controller
+      summary: getSampleFormSurat
+      operationId: getSampleFormSurat
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /pelayanan:
+    post:
+      tags:
+        - Pelayanan-Controller
+      summary: getAllPelayananPaginate
+      operationId: getAllPelayananPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      tags:
+        - Pelayanan-Controller
+      summary: getPelayananById
+      operationId: getPelayananById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - Pelayanan-Controller
+      summary: updatePelayanan
+      operationId: updatePelayanan
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updatePelayanan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/pelayanan/download/{id}':
+    get:
+      tags:
+        - Pelayanan-Controller
+      summary: getDownloadFileById
+      operationId: getDownloadFileById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/pelayanan/{id}':         
+    post:
+      tags:
+        - Pelayanan-Controller
+      summary: deletePelayananById
+      operationId: deletePelayananById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'                     
+# end::pelayanan      
+# 
+# begin::InfoGrafis
+  /info-grafis/add:
+    post:
+      tags:
+        - InfoGrafis-Controller
+      summary: addInfoGrafis
+      operationId: addInfoGrafis 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InfoGrafis'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /info-grafis:
+    post:
+      tags:
+        - InfoGrafis-Controller
+      summary: getAllInfoGrafisPaginate
+      operationId: getAllInfoGrafisPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+    get:
+      tags:
+        - InfoGrafis-Controller
+      summary: getInfoGrafisById
+      operationId: getInfoGrafisById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - InfoGrafis-Controller
+      summary: updateInfoGrafis
+      operationId: updateInfoGrafis
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InfoGrafis'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/info-grafis/{id}':         
+    post:
+      tags:
+        - InfoGrafis-Controller
+      summary: deleteInfoGrafisById
+      operationId: deleteInfoGrafisById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'                          
+# end::InfoGrafis
+# 
+# begin::FAQ
+  /faq/add:
+    post:
+      tags:
+        - FAQ-Controller
+      summary: addFAQ
+      operationId: addFAQ 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faq'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /faq:
+    post:
+      tags:
+        - FAQ-Controller
+      summary: getAllFAQPaginate
+      operationId: getAllFAQPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+    get:
+      tags:
+        - FAQ-Controller
+      summary: getFAQById
+      operationId: getFAQById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - FAQ-Controller
+      summary: updateFAQ
+      operationId: updateFAQ
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Faq'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/faq/{id}':         
+    post:
+      tags:
+        - FAQ-Controller
+      summary: deleteFaqById
+      operationId: deleteFaqById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'  
+# end::FAQ
+# 
+# begin::lookup
+  /lookup/chart/front:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getChartFront
+      operationId: getChartFront
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/chart:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getChart
+      operationId: getChart
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/roles:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getRoles
+      operationId: getRoles 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/instansi:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getInstansi
+      operationId: getInstansi 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/tema:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getTema
+      operationId: getTema 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'  
+  /lookup/pertanyaan:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getPertanyaan
+      operationId: getPertanyaan 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/list-pelayanan:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getListPelayanan
+      operationId: getListPelayanan 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/info-grafis:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getListInfoGrafis
+      operationId: getListInfoGrafis 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+  /lookup/faq:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getListFaq
+      operationId: getListFaq 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /lookup/antrian:
+    get:
+      tags:
+        - Lookup-Controller
+      summary: getListAntrian
+      operationId: getListAntrian 
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'                                                                    
+# end::lookup
+# 
+# begin::users
+  /users/add:
+    post:
+      tags:
+        - Users-Controller
+      summary: addUsers
+      operationId: addUsers 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /users:
+    post:
+      tags:
+        - Users-Controller
+      summary: getAllUsersPaginate
+      operationId: getAllUsersPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+    get:
+      tags:
+        - Users-Controller
+      summary: getUsersById
+      operationId: getUsersById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - Users-Controller
+      summary: updateUsers
+      operationId: updateUsers
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Users'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /users/reset-pass:         
+    get:
+      tags:
+        - Users-Controller
+      summary: resetPassUsersById
+      operationId: resetPassUsersById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'           
+  '/users/{id}':         
+    post:
+      tags:
+        - Users-Controller
+      summary: deleteUsersById
+      operationId: deleteUsersById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+# end::users
+# 
+# begin::instansi
+  /instansi/add:
+    post:
+      tags:
+        - Instansi-Controller
+      summary: addInstansi
+      operationId: addInstansi 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Instansi'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /instansi:
+    post:
+      tags:
+        - Instansi-Controller
+      summary: getAllInstansiPaginate
+      operationId: getAllInstansiPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+    get:
+      tags:
+        - Instansi-Controller
+      summary: getInstansiById
+      operationId: getInstansiById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - Instansi-Controller
+      summary: updateInstansi
+      operationId: updateInstansi
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Instansi'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/instansi/{id}':         
+    post:
+      tags:
+        - Instansi-Controller
+      summary: deleteFaqById
+      operationId: deleteFaqById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'  
+# end::instansi
+# 
+# begin::tema
+  /tema/add:
+    post:
+      tags:
+        - Tema-Controller
+      summary: addTema
+      operationId: addTema 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tema'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /tema:
+    post:
+      tags:
+        - Tema-Controller
+      summary: getAllTemaPaginate
+      operationId: getAllTemaPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+    get:
+      tags:
+        - Tema-Controller
+      summary: getTemaById
+      operationId: getTemaById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - Tema-Controller
+      summary: updateTema
+      operationId: updateTema
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tema'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/tema/{id}':         
+    post:
+      tags:
+        - Tema-Controller
+      summary: deleteTemaById
+      operationId: deleteTemaById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'  
+# end::tema
+# 
+# begin::pertanyaan
+  /pertanyaan/add:
+    post:
+      tags:
+        - Pertanyaan-Controller
+      summary: addPertanyaan
+      operationId: addPertanyaan 
+      requestBody:
+        required: true                   
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pertanyaan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  /pertanyaan:
+    post:
+      tags:
+        - Pertanyaan-Controller
+      summary: getAllPertanyaanPaginate
+      operationId: getAllPertanyaanPaginate 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getIndexPaginate'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+    get:
+      tags:
+        - Pertanyaan-Controller
+      summary: getPertanyaanById
+      operationId: getPertanyaanById
+      parameters:
+        - name: id
+          in: query
+          schema:
+            $ref: '#/components/parameters/getById'           
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'          
+    put:
+      tags:
+        - Pertanyaan-Controller
+      summary: updatePertanyaan
+      operationId: updatePertanyaan
+      requestBody:
+        required: true                                    
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pertanyaan'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500'
+  '/pertanyaan/{id}':         
+    post:
+      tags:
+        - Pertanyaan-Controller
+      summary: deletePertanyaanById
+      operationId: deletePertanyaanById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            $ref: '#/components/parameters/getByIdOnPath'
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'                         
+        '404':
+          $ref: '#/components/responses/404'          
+        '500':
+          $ref: '#/components/responses/500' 
+# end::pertanyaan
+# 
+############################# COMPONENTS #############################                         
+components:
+###### RESPONSE ######  
+  responses:
+    400:       
+      description: The Bad Request.
+    401:       
+      description: Unauthorized.
+    403:       
+      description: Forbidden.               
+    404:       
+      description: The specified resource was not found.
+    200:       
+      description: Success.      
+    500:       
+      description: Inter Server Error.           
+###### PARAMETERS ######  
+  parameters:
+    getByNik:
+      name: nik
+      in: path
+      required: true    
+    getByTicket:
+      name: no_pengaduan
+      in: query
+      required: true
+    getById:
+      name: id
+      in: query
+    getByIdOnPath:
+      name: id
+      in: query      
+      required: true
+    getByEmailOnPath:
+      name: email
+      in: query      
+      required: true      
+    deleteByTicket:
+      name: ticket
+      in: path
+      required: true      
+###### schemas-body ######                   
+  schemas:
+    getIndexPaginate:
+      type: object
+      required:
+        - page
+        - size
+        - sortField
+        - sortOrder      
+      properties:
+        page:
+          type: integer
+          example: 1
+        size:
+          type: integer
+          example: 5
+        sortField:
+          type: string
+          example: created_at
+        sortOrder:
+          type: string
+          example: desc
+        filters:
+          type: array
+          items:             
+            $ref: '#/components/schemas/Filter'                                                                   
+      xml:
+        name: getIndexPaginate
+    Filter:
+      type: object
+      required:
+        - key
+        - operation
+        - value   
+      properties:
+        key:
+          type: string
+          example: 
+        operation:
+          type: string
+          example:           
+        value:
+          type: string  
+          default: 
+          example:                                                                         
+      xml:
+        name: Filter           
+    addPengaduan:
+      type: object
+      required:
+        - nik
+        - nama
+        - pertanyaan
+        - nohp
+      properties:
+        nik:
+          type: integer
+          description: Masukan Nik Anda
+          example: 3101010101080001
+        nama:
+          type: string
+          description: Masukan Nama Anda
+          example: bejo                     
+        alamat:
+          type: string
+          description: Masukan Alamat Anda
+          example: kepo 
+        nohp:
+          type: string
+          description: Masukan no. Hp Anda
+          example: 08123456789
+        email:
+          type: string
+          description: Masukan email anda
+          example: bejo@mail.com        
+        id_pertanyaan:
+          type: int
+          description: Pilih Pertanyaan Anda -> lookup pertanyaan
+          example: 2  
+        uraian:
+          type: string
+          description: Masukan Uraian Untuk Pengaduan
+          example: Sebelumnnya saya sudah pernah mendapatkan bantuan bansos, tapi tahun ini tidak
+        status:
+          type: integer
+          description: status -> Open on Create New
+          enum:
+            - 0
+            - 1
+          default: 0
+        tanggal:
+          type: string
+          description: Masukan Tanggal utk Kedatang Antrian
+          example: 09-09-2019
+        jam:
+          type: string
+          description: Masukan Jam utk Kedatang Antrian
+          example: 08:00 - 09:00                            
+      xml:
+        name: addPengaduan
+    updatePengaduan:
+      type: object
+      properties:
+        no_pengaduan:
+          type: string
+          description: Input no_pengaduan            
+        status:
+          type: integer
+          description: Choose Status -> 0 (Open) or 1 (Closed)
+          enum:
+            - 0
+            - 1
+          default: 0
+        updated_by:
+          type: string
+          description: Input updated_by
+          example: OP01.ilham                                  
+      xml:
+        name: UpdatePengaduan
+    addCommentPengaduan:
+      type: object
+      properties:
+        no_pengaduan:
+          type: string
+          description: Input no_pengaduan
+          example: fill_this_with_no_pengaduan   
+        comment:
+          type: string
+          description: Input comment
+          example: Mohon Maaf Anda harus mendaftar ulang agar terdaftar di BDT
+        created_by:
+          type: string
+          description: Input created_by -> null => Masyarakat or -> not null => Operator
+          example: fill_this_with_operator_name_or_null_if_from_masyarakat
+        is_operator:
+          type: integer
+          description: if operator -> 1, else -> 0
+          example: 0                                          
+      xml:
+        name: addCommentPengaduan          
+    addiAsk:
+      type: object
+      required:
+        - nik
+        - nama
+        - tema
+        - nohp
+      properties:
+        nik:
+          type: integer
+          description: Masukan Nik Anda lalu Calling API searchNik
+          example: 3172021212010007
+        nama:
+          type: string
+          description: Masukan Nama Anda
+          example: bejo                     
+        alamat:
+          type: string
+          description: Masukan Alamat Anda
+          example: kepo 
+        nohp:
+          type: string
+          description: Masukan no. Hp Anda
+          example: 081234334235
+        email:
+          type: string
+          description: Masukan email anda
+          example: bejo@mail.com        
+        id_tema:
+          type: int
+          description: masukan id_tema
+          example: 8         
+        uraian:
+          type: string
+          description: Masukan Uraian Untuk Pengaduan
+          example: Sebelumnnya saya sudah pernah daftar ulang KJP bulan lalu
+        status:
+          type: integer
+          description: status -> 0 (open) / 1 (closed)
+          enum:
+            - 0
+            - 1
+          example: 0                        
+      xml:
+        name: addiAsk
+    updateiAsk:
+      type: object
+      properties:
+        no_pengaduan:
+          type: string
+          description: Input no_pengaduan              
+        status:
+          type: integer
+          description: Choose Status -> 0 = Open or 1 = Close
+          enum:
+            - 0
+            - 1
+          default: 0
+        updated_by:
+          type: string
+          description: Input updated_by
+          example: OP03.ilham                                  
+      xml:
+        name: updateiAsk
+    addCommentiAsk:
+      type: object
+      properties:
+        no_pengaduan:
+          type: string
+          description: Input no_ticket
+          example: fill_this_with_no_pengaduan   
+        comment:
+          type: string
+          description: Input comment
+          example: Mohon Maaf Anda harus mendaftar ulang agar terdaftar di BDT            
+        created_by:
+          type: string
+          description: Input created_by -> null => Masyarakat or -> not null => Operator
+          example: fill_this_with_operator_name_or_null_if_from_masyarakat                                
+      xml:
+        name: addCommentiAsk              
+    Pertanyaan:
+      type: object
+      properties:
+        id_pertanyaan:
+          type: integer
+          description: Input id_pertanyaan            
+        id_instansi:
+          type: integer
+          description: Input id_instansi -> lookup from instansi         
+        id_tema:
+          type: integer
+          description: Input id_tema -> lookup from tema
+        pertanyaan:
+          type: string
+          description: Input Pertanyaan                                  
+      xml:
+        name: Pertanyaan       
+    Tema:
+      type: object
+      properties:
+        id_tema:
+          type: integer
+          description: Input id_tema          
+        id_instansi:
+          type: integer
+          description: Input id_instansi -> lookup from instansi           
+        tema:
+          type: string
+          description: addInput Tema               
+      xml:
+        name: Tema               
+    Instansi:
+      type: object
+      properties:
+        id_instansi:
+          type: string
+          description: Input Id atau Kode Instansi   
+        nama_instansi:
+          type: string
+          description: Input Tema                   
+        alamat:
+          type: string
+          description: Input Alamat
+        telp:
+          type: integer
+          description: Input telp                       
+      xml:
+        name: Instansi
+    Users:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Input id           
+        name:
+          type: string
+          description: Input nama                   
+        email:
+          type: string
+          description: Input email
+        username:
+          type: string
+          description: Input username
+        password:
+          type: string
+          description: Input password
+        id_roles:
+          type: integer
+          description: Input id_roles
+        id_instansi:
+          type: string
+          description: Input id_instansi                                                        
+      xml:
+        name: Users
+    listPelayanan:
+      type: object
+      properties: 
+        id:
+          type: integer
+          description: Input id                         
+        name:
+          type: string
+          description: Input nama                                                   
+      xml:
+        name: listPelayanan               
+    Pelayanan:
+      type: object
+      properties:
+        instansi:
+          type: string
+          description: Input instansi                   
+        nama:
+          type: string
+          description: Input nama
+        nik:
+          type: integer
+          description: Input nik          
+        nohp:
+          type: string
+          description: Input nohp
+        email:
+          type: string
+          description: Input email
+        id_list:
+          type: integer
+          description: Input email
+        uraian:
+          type: string
+          description: Input uraian  
+        file:
+          type: string
+          format: binary
+          description: Blob File
+        status:
+          type: string
+          description: Input status
+          default: 0
+          example: 0 
+        created_by:
+          type: string
+          description: Input created_by 
+        updated_by:
+          type: string
+          description: Input updated_by                                                                                                  
+      xml:
+        name: Pelayanan
+    updatePelayanan:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Input id             
+        status:
+          type: string
+          description: Input status
+          default: 0
+          example: 0
+        id_tracker:
+          type: integer
+          description: Input id_tracker
+          example: 1          
+        updated_by:
+          type: string
+          description: Input updated_by                                                                                                  
+      xml:
+        name: updatePelayanan
+    InfoGrafis:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Input id        
+        is_publish:
+          type: integer
+          description: Input is_publish
+        title:
+          type: string
+          description: Input title
+        file:
+          type: string
+          description: Input file
+        description:
+          type: string
+          description: Input description                                                                                                                                   
+      xml:
+        name: InfoGrafis     
+    Faq:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Input id        
+        question:
+          type: string
+          description: Input question            
+        answer:
+          type: string
+          description: Input answer                                                                                                                               
+      xml:
+        name: Faq                                                                                                                                
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  securitySchemes:
+    CRM_Auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+
+security:
+  - CRM_Auth: []  

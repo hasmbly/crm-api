@@ -1,0 +1,122 @@
+/**
+ * @OA\OpenApi(
+ *     paths="/",
+ *     @OA\Info(
+ *         description="This is  documentation for CRM",
+ *         version="1.0.0",
+ *         title="(Lumen)  documentation CRM",
+ *         @OA\Contact(
+ *             email="justhasby@gmail.com"
+ *         ),
+ *         @OA\License(
+ *             name="Dinas Sosial Pemrov DKI Jakarta"
+ *         ),
+ *		
+ *     )
+ * )
+ */	
+ 
+ /**
+* @OA\Get(
+ *   path="/api/nik/{nik}",
+ *   summary="Cari Nik",
+ *   description="Return NIK if exist and BANSOS",
+ *	 tags={"NIK"},
+ *   @OA\Parameter(
+ *         name="nik",
+ *         in="path",
+ *         description="Your NIK",
+ *         required=true,
+ *     ),
+ *   @OA\Response(
+ *     response=400,
+ *     description="Invalid NIK"
+ *   ),
+*     @OA\Response(
+ *         response=404,
+ *         description="NIK not found"
+ *     )
+ * )
+ */
+
+ /**
+* @OA\Post(
+ *   path="/api/auth/login",
+ *   summary="Login Users",
+ *   description="Return Ture if exist",
+ *	 tags={"Users"},
+ *   @OA\Parameter(
+ *         name="email",
+ *         in="query",
+ *         description="The Email For login",
+ *         required=true,
+ *     ),
+ *   @OA\Parameter(
+ *         name="password",
+ *         in="query",
+ *         
+ *         description="The Password For login",
+ *         required=true,
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation"
+ *     ),
+ *   @OA\Response(
+ *     response=400,
+ *     description="Invalid Email/Password Suplied"
+ *   )
+ * )
+ */
+
+ /**
+* @OA\Get(
+ *   path="/api/pengaduan",
+ *   summary="Fetch Pengaduan Index",
+ *   description="Return NIK if exist and BANSOS",
+ *	 tags={"Pengaduan"},
+ *   
+ *   @OA\Parameter(
+ *         name="nik",
+ *         in="path",
+ *         
+ *         description="Your NIK",
+ *         required=true,
+ *     ),
+ *   @OA\Response(
+ *     response=400,
+ *     description="Invalid NIK"
+ *   ),
+*     @OA\Response(
+ *         response=404,
+ *         description="NIK not found"
+ *     )
+ * )
+ */
+
+
+
+ /**
+* @OA\Post(
+ *   path="/api/pengaduan",
+ *   summary="Create Ticket Pengaduan",
+ *   description="Return NIK if exist and BANSOS",
+ *	 tags={"Pengaduan"},
+ *   
+ *   @OA\Parameter(
+ *         name="nik",
+ *         in="path",
+ *         
+ *         description="Your NIK",
+ *         required=true,
+ *     ),
+ *   @OA\Response(
+ *     response=400,
+ *     description="Invalid NIK"
+ *   ),
+*     @OA\Response(
+ *         response=404,
+ *         description="NIK not found"
+ *     )
+ * )
+ */

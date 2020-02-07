@@ -1,0 +1,54 @@
+{
+    "name": "noitran/opendox",
+    "description": "OpenApi(Swagger) 3.0 package for Lumen 5.5+ and Laravel 5.5+ with REDOC UI and SwaggerUI 3",
+    "authors": [
+        {
+            "name": "Noitran.Black",
+            "email": "noitran.black@gmail.com"
+        }
+    ],
+    "keywords": [
+        "api",
+        "openapi",
+        "swagger",
+        "swagger-ui",
+        "laravel",
+        "lumen",
+        "rest",
+        "documentation",
+        "redoc",
+        "redoc-ui"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*",
+        "symfony/yaml": "^4.2",
+        "illuminate/routing": "~5.7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~7.0",
+        "illuminate/support": "~5.7",
+        "illuminate/http": "~5.7",
+        "illuminate/console": "~5.7",
+        "laravel/lumen-framework": "~5.7",
+        "orchestra/testbench": "~3.4.2|~3.5.0|~3.6.0|~3.7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Noitran\\Opendox\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Noitran\\Opendox\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Noitran\\Opendox\\ServiceProvider"
+            ]
+        }
+    }
+}
